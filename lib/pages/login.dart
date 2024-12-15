@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:soundboard_0/pages/homepage.dart';
-
+import '../controllers/login_controller.dart';
 class Login extends StatefulWidget {
-  const Login({super.key});
+
+  const Login({Key? key}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -10,6 +11,10 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   var iconVisible = false;
+
+ final emailContronller = TextEditingController();
+ final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>(); 
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,7 @@ class _LoginState extends State<Login> {
       ),
       backgroundColor: Color.fromARGB(255, 46, 45, 45), 
       body: Form(
+        key: formKey,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child:  Column(
@@ -41,16 +47,18 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(height: 100),
               Container(
-                width: 300, 
+                width: 350, 
                 child: TextFormField(
+                                    controller: emailContronller,
+
                   decoration: InputDecoration(
-                    labelText: 'Username',
+                    labelText: 'Email',
                     border: OutlineInputBorder(),
                   
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a username';
+                      return 'Please enter a email';
                     }
                     return null;
                   },
@@ -62,8 +70,12 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(height: 20),
               Container(
-                width: 300, // Set the desired width
+                width: 350, 
                 child: TextFormField(
+                  controller: passwordController,
+
+
+
                   decoration: InputDecoration(
                     labelText: 'Password',
                                         border: OutlineInputBorder(),
@@ -92,7 +104,27 @@ class _LoginState extends State<Login> {
               ),
 
 
-              ElevatedButton(onPressed: null, child: Text('Submit')),
+              ElevatedButton(onPressed: () {
+
+                  // if(formKey.currentState!.validate()) {
+                  //   print('Form is valid');
+
+
+                  //   Navigator.pushReplacement(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => Homepage()),
+                  //   );
+                  // } else {
+                  //   print('Form is invalid');
+                  // }
+        
+
+
+                var loginController = LoginController();
+                loginController.checkUser(context, emailContronller.text, passwordController.text, formKey ); 
+
+
+              }, child: Text('Submit')),
     ElevatedButton(
             onPressed: () {
               // Navigator.pushNamed(context, '/homepage');
