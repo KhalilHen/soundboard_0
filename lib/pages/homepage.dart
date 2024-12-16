@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:soundboard_0/controllers/login_controller.dart';
 import '../dialogs/upload_sound_dialog.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 

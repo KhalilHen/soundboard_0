@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soundboard_0/pages/homepage.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 

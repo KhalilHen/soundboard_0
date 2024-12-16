@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soundboard_0/pages/homepage.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_cloud';
 
 class LoginController {
 
@@ -18,30 +16,30 @@ class LoginController {
 
 
 
-        if(formKey.currentState!.validate()) {
-          FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: email,
-            password: password,
-          ).then((value) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => Homepage()),
-            );
-          }).catchError((e) {
+        // if(formKey.currentState!.validate()) {
+        //   FirebaseAuth.instance.signInWithEmailAndPassword(
+        //     email: email,
+        //     password: password,
+        //   ).then((value) {
+        //     Navigator.pushReplacement(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => Homepage()),
+        //     );
+        //   }).catchError((e) {
 
 
-            //
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Invalid email or password' +e),
-              ),
-            );
-          });
-        }                  
+        //     //
+        //     ScaffoldMessenger.of(context).showSnackBar(
+        //       SnackBar(
+        //         content: Text('Invalid email or password' +e),
+        //       ),
+        //     );
+        //   });
+        // }                  
 
 
   }
   retrieveCurrentUser() {
-    return FirebaseAuth.instance.currentUser;
+    // return FirebaseAuth.instance.currentUser;
   }
 }
