@@ -37,24 +37,11 @@ class LoginController {
               ),
             );
           });
-        }
+        }                  
 
 
-//TODO remove this later
-                  //      if(formKey.currentState!.validate()) {
-                  //   print('Form is valid');
-
-
-                  //   Navigator.pushReplacement(
-                  //     context,
-                  //     MaterialPageRoute(builder: (context) => Homepage()),
-                  //   );
-                  // } else {
-                  //   print('Form is invalid');
-                  // }
-
-
-   
-
+  }
+  retrieveCurrentUser() {
+    return FirebaseAuth.instance.currentUser;
   }
 }

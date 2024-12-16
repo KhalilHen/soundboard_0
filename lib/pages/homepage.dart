@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:soundboard_0/controllers/login_controller.dart';
 import '../dialogs/upload_sound_dialog.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
@@ -8,6 +11,9 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  // parseUser currentUser = FirebaseAuth.instance.currentUser;
+  
+  final  loginController = LoginController();
   @override
   Widget build(BuildContext context) {
  return Scaffold(
@@ -26,7 +32,12 @@ class _HomepageState extends State<Homepage> {
       ),
       backgroundColor: Color.fromARGB(255, 46, 45, 45), // Clean dark background
      
-      
+      // body: Container(
+
+      //     child:  Text(loginController.retrieveCurrentUser().email), // This works
+
+
+      // ),
     body: GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4, 
@@ -42,6 +53,7 @@ class _HomepageState extends State<Homepage> {
       },
         );
       },
+      
     ),
 
     floatingActionButton: FloatingActionButton(
