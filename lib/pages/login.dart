@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:soundboard_0/pages/homepage.dart';
 import '../controllers/login_controller.dart';
-class Login extends StatefulWidget {
+import '../auth/auth_service.dart';
 
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
@@ -12,9 +13,30 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   var iconVisible = false;
 
- final emailContronller = TextEditingController();
- final passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>(); 
+  final emailContronller = TextEditingController();
+  final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
+  final authService = AuthService();
+  //temporary function placement  to test
+  void Login() async {
+    final email = emailContronller.text;
+    final password = passwordController.text;
+    try {
+      await authService.signInWithEmaiPassword(email, password).then((value) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Homepage()),
+        );
+      }).catchError((e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Invalid email or password' + e.toString()),
+          ),
+        );
+      });
+    } catch (e) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +54,12 @@ class _LoginState extends State<Login> {
         backgroundColor: Colors.black87,
         elevation: 2.0,
       ),
-      backgroundColor: Color.fromARGB(255, 46, 45, 45), 
+      backgroundColor: Color.fromARGB(255, 46, 45, 45),
       body: Form(
         key: formKey,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child:  Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -47,14 +69,12 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(height: 100),
               Container(
-                width: 350, 
+                width: 350,
                 child: TextFormField(
-                                    controller: emailContronller,
-
+                  controller: emailContronller,
                   decoration: InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(),
-                  
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -62,32 +82,26 @@ class _LoginState extends State<Login> {
                     }
                     return null;
                   },
-
-                   style: TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                   ),
                 ),
               ),
               SizedBox(height: 20),
               Container(
-                width: 350, 
+                width: 350,
                 child: TextFormField(
                   controller: passwordController,
-
-
-
                   decoration: InputDecoration(
                     labelText: 'Password',
-                                        border: OutlineInputBorder(),
-
+                    border: OutlineInputBorder(),
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
                           iconVisible = !iconVisible;
                         });
                       },
-                      icon: Icon(
-                          iconVisible ? Icons.visibility : Icons.visibility_off),
+                      icon: Icon(iconVisible ? Icons.visibility : Icons.visibility_off),
                     ),
                   ),
                   validator: (value) {
@@ -102,46 +116,36 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
+              ElevatedButton(
+                  onPressed: () {
+                    // if(formKey.currentState!.validate()) {
+                    //   print('Form is valid');
 
+                    //   Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => Homepage()),
+                    //   );
+                    // } else {
+                    //   print('Form is invalid');
+                    // }
 
-              ElevatedButton(onPressed: () {
-
-                  // if(formKey.currentState!.validate()) {
-                  //   print('Form is valid');
-
-
-                  //   Navigator.pushReplacement(
-                  //     context,
-                  //     MaterialPageRoute(builder: (context) => Homepage()),
-                  //   );
-                  // } else {
-                  //   print('Form is invalid');
-                  // }
-        
-
-
-                var loginController = LoginController();
-                loginController.checkUser(context, emailContronller.text, passwordController.text, formKey ); 
-
-
-              }, child: Text('Submit')),
-    ElevatedButton(
-            onPressed: () {
-              // Navigator.pushNamed(context, '/homepage');
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => Homepage()),
-              );
-            },
-            child: Text('Go to Homepage'),
-            ),
+                    var loginController = LoginController();
+                    loginController.checkUser(context, emailContronller.text, passwordController.text, formKey);
+                  },
+                  child: Text('Submit')),
+              ElevatedButton(
+                onPressed: () {
+                  // Navigator.pushNamed(context, '/homepage');
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Homepage()),
+                  );
+                },
+                child: Text('Go to Homepage'),
+              ),
             ],
-        
           ),
         ),
-
-
-      
       ),
     );
   }
