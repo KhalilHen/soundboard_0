@@ -15,11 +15,16 @@ class LoginController {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => Homepage()),
-        );
+        ).then((_) {
+          // Clear the form fields after navigation
+          formKey.currentState!.reset();
+        });
       }).catchError((e) {
+        formKey.currentState!.reset();
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Invalid email or password' + e.toString()),
+            content: Text('Invalid email or password: ' + e.toString()),
           ),
         );
       });

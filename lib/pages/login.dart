@@ -38,6 +38,14 @@ class _LoginState extends State<Login> {
     } catch (e) {}
   }
 
+//This is for clearing the form field s after submiting
+  @override
+  void dispose() {
+    emailContronller.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +80,9 @@ class _LoginState extends State<Login> {
                 width: 350,
                 child: TextFormField(
                   controller: emailContronller,
+                  onFieldSubmitted: (value) {
+                    emailContronller.clear();
+                  },
                   decoration: InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(),
@@ -92,6 +103,9 @@ class _LoginState extends State<Login> {
                 width: 350,
                 child: TextFormField(
                   controller: passwordController,
+                  onFieldSubmitted: (value) {
+                    passwordController.clear();
+                  },
                   decoration: InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),

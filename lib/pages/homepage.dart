@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:soundboard_0/auth/auth_service.dart';
+import 'package:soundboard_0/controllers/homepage_controler..dart';
 import 'package:soundboard_0/controllers/login_controller.dart';
 import '../dialogs/upload_sound_dialog.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -13,8 +15,9 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   // parseUser currentUser = FirebaseAuth.instance.currentUser;
   final authService = AuthService();
-
+  final homepageController = HomePageController();
   final loginController = LoginController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +50,8 @@ class _HomepageState extends State<Homepage> {
       //     child:  Text(loginController.retrieveCurrentUser().email), // This works
 
       // ),
+      // body:  retretrieveSounds(),
+
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
@@ -61,6 +66,16 @@ class _HomepageState extends State<Homepage> {
         },
       ),
 
+//Gonna try this later gonna work first on playing the audio
+      // body: Container(
+      //   child: ElevatedButton(
+      //     onPressed: () async {x1
+      //       final SupabaseClient supabase = Supabase.instance.client;
+      //       final Bucket bucket = await supabase.storage.getBucket('sounds');
+      //     },
+      //     child: Text('Get Sounds'),
+      //   ),
+      // ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
