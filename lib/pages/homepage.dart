@@ -4,6 +4,7 @@ import 'package:soundboard_0/controllers/homepage_controler..dart';
 import 'package:soundboard_0/controllers/login_controller.dart';
 import '../dialogs/upload_sound_dialog.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:soundboard_0/pages/login.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -38,7 +39,10 @@ class _HomepageState extends State<Homepage> {
             icon: Icon(Icons.logout),
             onPressed: () {
               authService.signOut();
-              Navigator.of(context).pushReplacementNamed('/login');
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+              );
             },
           ),
         ],
@@ -52,19 +56,26 @@ class _HomepageState extends State<Homepage> {
       // ),
       // body:  retretrieveSounds(),
 
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-        ),
-        itemCount: 20, // TODO Change it later into for each
-        itemBuilder: (context, index) {
-          return IconButton(
-            icon: Icon(Icons.music_note),
-            color: Colors.white,
-            onPressed: () {},
-          );
-        },
+//For testing if it can find the current user
+      body: Center(
+        child: Text(authService.getLoggedInUser() ?? 'No user found'),
       ),
+
+
+      
+      // body: GridView.builder(
+      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      //     crossAxisCount: 4,
+      //   ),
+      //   itemCount: 20, // TODO Change it later into for each
+      //   itemBuilder: (context, index) {
+      //     return IconButton(
+      //       icon: Icon(Icons.music_note),
+      //       color: Colors.white,
+      //       onPressed: () {},
+      //     );
+      //   },
+      // ),
 
 //Gonna try this later gonna work first on playing the audio
       // body: Container(

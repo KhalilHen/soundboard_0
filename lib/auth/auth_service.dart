@@ -11,19 +11,12 @@ class AuthService {
 //Sing up fuction
   Future<AuthResponse> signUpWithEmaiPassword(String email, String password) async {
     return await supaBase.auth.signUp(email: email, password: password);
-
   }
 
-
-
-      //Sign out function
-Future<void> signOut() async {
+  //Sign out function
+  Future<void> signOut() async {
     await supaBase.auth.signOut();
-  } 
-
-
-  
-
+  }
 
   String? getLoggedInUser() {
     final session = supaBase.auth.currentSession;
