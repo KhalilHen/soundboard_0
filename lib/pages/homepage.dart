@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soundboard_0/auth/auth_service.dart';
 import 'package:soundboard_0/controllers/homepage_controler..dart';
 import 'package:soundboard_0/controllers/login_controller.dart';
+import 'package:soundboard_0/controllers/upload_sound_controller.dart';
 import '../dialogs/upload_sound_dialog.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:soundboard_0/pages/login.dart';
@@ -18,6 +19,32 @@ class _HomepageState extends State<Homepage> {
   final authService = AuthService();
   final homepageController = HomePageController();
   final loginController = LoginController();
+  final soundController = SoundController();
+  int? itemCount;
+  String? errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadItems(); // Fetch data when the widget initializes
+  }
+
+  Future<void> _loadItems() async {
+    try {
+      final count = await soundController.retrieveList(context);
+      if (count > 0) {
+        setState(() {
+          itemCount = count; // Update state with the fetched count
+        });
+      } else {
+        setState(() {});
+      }
+    } catch (e) {
+      setState(() {
+        errorMessage = e.toString(); // Capture any error messages
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,28 +83,28 @@ class _HomepageState extends State<Homepage> {
       // ),
       // body:  retretrieveSounds(),
 
-//For testing if it can find the current user
-      body: Center(
-        child: Text(authService.getLoggedInUser() ?? 'No user found'),
-      ),
-
-
-      
-      // body: GridView.builder(
-      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      //     crossAxisCount: 4,
-      //   ),
-      //   itemCount: 20, // TODO Change it later into for each
-      //   itemBuilder: (context, index) {
-      //     return IconButton(
-      //       icon: Icon(Icons.music_note),
-      //       color: Colors.white,
-      //       onPressed: () {},
-      //     );
-      //   },
+      //For testing if it can find the current user
+      // body: Center(
+      //   child: Text(authService.getLoggedInUser() ?? 'No user found'),
       // ),
 
-//Gonna try this later gonna work first on playing the audio
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+        ),
+        itemCount: itemCount, // TODO Change it later into for each
+        itemBuilder: (context, index) {
+          return IconButton(
+            icon: Icon(Icons.music_note),
+            color: Colors.white,
+            onPressed: () {
+              print('Button $index pressed');
+            },
+          );
+        },
+      ),
+
+      //Gonna try this later gonna work first on playing the audio
       // body: Container(
       //   child: ElevatedButton(
       //     onPressed: () async {x1
@@ -87,6 +114,7 @@ class _HomepageState extends State<Homepage> {
       //     child: Text('Get Sounds'),
       //   ),
       // ),
+
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {

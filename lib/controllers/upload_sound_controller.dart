@@ -74,6 +74,53 @@ class SoundController {
       );
     }
   }
+
+  // Future<int> retrieveList(BuildContext context) async {
+  //   try {
+  //     final response = await supabase.storage.from('sounds').list();
+
+  //     if (response.error == null) {
+  //       return response.length;
+
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text('List retrieved successfully!'),
+  //         ),
+  //       );
+  //     } else {
+  //       return throw Exception('Failed to retrieve list: ${response.error!.message}');
+  //     }
+  //   } catch (e) {
+  //     print('Error during list retrieval: $e');
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Error: $e'),
+  //       ),
+  //     );
+  //     return 0;
+  //   }
+  // }
+
+  Future<int> retrieveList(BuildContext context) async {
+    try {
+      // final response = await supabase.storage.from('sounds').list();
+      final response = await supabase.storage.from('sounds').list(path: 'uploads');
+
+      if (response != null) {
+        print(response.length);
+        return response.length; // Return the count of items
+      } else {
+        throw Exception('Failed to retrieve list: ${response.error!.message}');
+      }
+    } catch (e) {
+      print('Error during list retrieval: $e');
+      return 0; // Return 0 if an error occurs
+    }
+  }
+}
+
+extension on List<FileObject> {
+  get error => null;
 }
 
 extension on String {
