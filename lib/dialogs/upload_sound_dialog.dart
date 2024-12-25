@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import '../controllers/upload_sound_controller.dart';
+
 class UploadSoundForm extends StatefulWidget {
   @override
   _UploadSoundFormState createState() => _UploadSoundFormState();
 }
 
 class _UploadSoundFormState extends State<UploadSoundForm> {
+  final soundController = SoundController();
 
-                final  soundController = SoundController();
-
- final nameController = TextEditingController();
+  final nameController = TextEditingController();
 //  final passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>(); 
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('Upload Sound'),
       content: Form(
-                key: formKey,
-
+        key: formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -32,7 +31,6 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
                 }
                 return null;
               },
-             
             ),
             // TextFormField(
             //   decoration: InputDecoration(labelText: 'Sound File Path'),
@@ -42,23 +40,14 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
             //     }
             //     return null;
             //   },
-              
-             
+
             // ),
-            ElevatedButton(onPressed:  ()  {
-
-
-                // soundController.uploadSound(nameController.text, 'sound file path');
-                soundController.pickFile(context);
-            },
-            
-            
-
-
-
-
-
-             child: Text('Select Sound File')),
+            ElevatedButton(
+                onPressed: () {
+                  // soundController.uploadSound(nameController.text, 'sound file path');
+                  soundController.pickFile(context);
+                },
+                child: Text('Select Sound File')),
           ],
         ),
       ),
@@ -70,7 +59,9 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
           child: Text('Cancel'),
         ),
         ElevatedButton(
-      onPressed: null,
+          onPressed: () {
+            soundController.uploadFile(context);
+          },
           child: Text('Upload'),
         ),
       ],
