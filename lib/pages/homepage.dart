@@ -115,7 +115,7 @@ class _HomepageState extends State<Homepage> {
       print('Attempting to play/pause: $url'); // Debug print
 
       if (currentlyPlayingUrl == url) {
-        if (isPlaying) {  
+        if (isPlaying) {
           await player.pause();
           print('Paused current track');
         } else {
@@ -215,34 +215,43 @@ class _HomepageState extends State<Homepage> {
 
       //For testing if it can find the current user
       // body: Center(
-      //   child: Text(authService.getLoggedInUser() ?? 'No user found'),
+      //   child: Text(
+      //     authService.getLoggedInUser() ?? 'No user found',
+      //     style: TextStyle(
+      //       color: Colors.white,
+      //       fontSize: 20,
+      //     ),
+      //   ),
       // ),
-
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
         ),
-        itemCount: audioUrls.length,
+        itemCount: audioUrls.length, 
         itemBuilder: (context, index) {
           final url = audioUrls[index];
           final isThisPlaying = currentlyPlayingUrl == url && isPlaying;
-          return IconButton(
-            icon: Icon(Icons.music_note),
-            color: Colors.white,
-            onPressed: () {
-              print('Button $index pressed');
-              print('Audio file $index pressed');
-              // handlePlayPause(audioUrls[index]);
-              handlePlayPause(url);
-              print('Playing audio from URL: $url');
-            },
+          return Column(
+            children: [
+              IconButton(
+                icon: Icon(Icons.music_note),
+                color: Colors.white,
+                onPressed: () {
+                  print('Button $index pressed');
+                  print('Audio file $index pressed');
+                  // handlePlayPause(audioUrls[index]);
+                  handlePlayPause(url);
+                  print('Playing audio from URL: $url');
+                },
+              ),
+            ],
           );
         },
       ),
       // body: Center(
       //   child: IconButton(onPressed: handlePlayPause, icon: Icon(Icons.play_arrow)),
       // ),
-      //Gonna try this later gonna work first on playing the audio
+      // Gonna try this later gonna work first on playing the audio
       // body: Container(
       //   child: ElevatedButton(
       //     onPressed: () async {x1

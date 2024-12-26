@@ -1,11 +1,13 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:soundboard_0/auth/auth_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 
 class SoundController {
   final supabase = Supabase.instance.client;
+  final authService = AuthService();
   Uint8List? _fileBytes;
   String? _fileName;
 
@@ -42,6 +44,16 @@ class SoundController {
   }
 
   Future<void> uploadFile(BuildContext context) async {
+    final user = await authService.getLoggedInUser();
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please log in to upload files.'),
+        ),
+      );
+      Navigator.pop(context);
+      return;
+    }
     if (_fileBytes == null || _fileName == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -53,7 +65,7 @@ class SoundController {
 
     try {
       final response = await supabase.storage.from('sounds').uploadBinary(
-            'uploads/$_fileName', // TODO Change this later into a fitting path
+            'uploads/${user}/$_fileName',
             _fileBytes!,
           );
 
@@ -63,7 +75,10 @@ class SoundController {
             content: Text('File uploaded successfully!'),
           ),
         );
+        Navigator.pop(context);
       } else {
+        Navigator.pop(context);
+
         throw Exception('Failed to upload file: ${response.error!.message}');
       }
     } catch (e) {
@@ -73,6 +88,7 @@ class SoundController {
           content: Text('Error: $e'),
         ),
       );
+      Navigator.pop(context);
     }
   }
 
@@ -155,7 +171,16 @@ class SoundController {
   // }
   Future<List<String>> retrieveList(BuildContext context) async {
     try {
-      final response = await supabase.storage.from('sounds').list(path: 'uploads');
+      final user = await authService.getLoggedInUser();
+      if (user == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please log in to upload files.'),
+          ),
+        );
+      }
+      // final response = await supabase.storage.from('sounds').list(path: 'uploads');
+      final response = await supabase.storage.from('sounds').list(path: 'uploads/${user}');
 
       if (response.isEmpty) {
         print('No files found in storage');
@@ -166,7 +191,7 @@ class SoundController {
       for (var file in response) {
         try {
           // Create a signed URL that will work for a period of time
-          final signedUrl = await supabase.storage.from('sounds').createSignedUrl('uploads/${file.name}', 3600); // URL valid for 1 hour
+          final signedUrl = await supabase.storage.from('sounds').createSignedUrl('uploads/${user}/${file.name}', 3600); // URL valid for 1 hour
 
           print('Generated signed URL: $signedUrl'); // Debug print
           urls.add(signedUrl);
