@@ -32,6 +32,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "audio_session",
+      "rootUri": "file:///C:/Users/Khali/AppData/Local/Pub/Cache/hosted/pub.dev/audio_session-0.1.23",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///C:/Users/Khali/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
       "packageUri": "lib/",
@@ -186,6 +192,24 @@
       "rootUri": "file:///C:/Users/Khali/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.7.1",
       "packageUri": "lib/",
       "languageVersion": "3.1"
+    },
+    {
+      "name": "just_audio",
+      "rootUri": "file:///C:/Users/Khali/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio-0.9.42",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "just_audio_platform_interface",
+      "rootUri": "file:///C:/Users/Khali/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio_platform_interface-4.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "just_audio_web",
+      "rootUri": "file:///C:/Users/Khali/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio_web-0.4.13",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "jwt_decode",
@@ -578,7 +602,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-12-23T17:04:55.866957Z",
+  "generated": "2024-12-26T00:41:48.168227Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///C:/flutter",

@@ -37,6 +37,7 @@ dependencies:
   flutter_sound: ^9.17.8
   file_picker: ^8.1.5
   supabase_flutter: ^2.8.1
+  just_audio: ^0.9.42
 
 dev_dependencies:
   flutter_test:
