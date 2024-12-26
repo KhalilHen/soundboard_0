@@ -22,16 +22,16 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextFormField(
-              controller: nameController,
-              decoration: InputDecoration(labelText: 'Sound Name'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a sound name';
-                }
-                return null;
-              },
-            ),
+            // TextFormField(
+            //   controller: nameController,
+            //   decoration: InputDecoration(labelText: 'Sound Name'),
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter a sound name';
+            //     }
+            //     return null;
+            //   },
+            // ), TODO Temporarily removed  as not yet implented
             // TextFormField(
             //   decoration: InputDecoration(labelText: 'Sound File Path'),
             //   validator: (value) {

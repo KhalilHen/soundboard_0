@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -15,11 +16,12 @@ class SoundController {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.any,
+        withData: true,
       );
 
       if (result != null) {
-        _fileBytes = result.files.single.bytes;
         _fileName = result.files.single.name;
+        _fileBytes = result.files.single.bytes ?? await File(result.files.single.path!).readAsBytes();
 
         if (_fileBytes != null && _fileName != null) {
           ScaffoldMessenger.of(context).showSnackBar(

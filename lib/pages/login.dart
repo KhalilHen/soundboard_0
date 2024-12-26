@@ -147,16 +147,16 @@ class _LoginState extends State<Login> {
                     loginController.checkUser(context, emailContronller.text, passwordController.text, formKey);
                   },
                   child: Text('Submit')),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.pushNamed(context, '/homepage');
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => Homepage()),
-                  );
-                },
-                child: Text('Go to Homepage'),
-              ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     // Navigator.pushNamed(context, '/homepage');
+              //     Navigator.pushReplacement(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => Homepage()),
+              //     );
+              //   },
+              //   child: Text('Go to Homepage'),
+              // ),
             ],
           ),
         ),

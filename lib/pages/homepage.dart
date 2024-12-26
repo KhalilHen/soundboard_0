@@ -227,7 +227,7 @@ class _HomepageState extends State<Homepage> {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
         ),
-        itemCount: audioUrls.length, 
+        itemCount: audioUrls.length,
         itemBuilder: (context, index) {
           final url = audioUrls[index];
           final isThisPlaying = currentlyPlayingUrl == url && isPlaying;

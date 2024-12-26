@@ -99,7 +99,7 @@
     },
     {
       "name": "file_picker",
-      "rootUri": "file:///C:/Users/Khali/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-8.1.5",
+      "rootUri": "file:///C:/Users/Khali/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-8.1.7",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -602,7 +602,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-12-26T00:41:48.168227Z",
+  "generated": "2024-12-26T21:24:25.122658Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///C:/flutter",
