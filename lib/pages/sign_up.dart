@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:soundboard_0/pages/homepage.dart';
-import 'package:soundboard_0/pages/sign_up.dart';
 import '../controllers/login_controller.dart';
 import '../auth/auth_service.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _LoginState extends State<Login> {
+class _SignUpState extends State<SignUp> {
   var iconVisible = false;
 
   final emailContronller = TextEditingController();
@@ -19,27 +18,7 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
 
   final authService = AuthService();
-  //temporary function placement  to test
-  void Login() async {
-    final email = emailContronller.text;
-    final password = passwordController.text;
-    try {
-      await authService.signInWithEmaiPassword(email, password).then((value) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Homepage()),
-        );
-      }).catchError((e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Invalid email or password' + e.toString()),
-          ),
-        );
-      });
-    } catch (e) {}
-  }
 
-//This is for clearing the form field s after submiting
   @override
   void dispose() {
     emailContronller.dispose();
@@ -73,7 +52,7 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Login',
+                'Sign up',
                 style: TextStyle(color: Colors.white, fontSize: 25),
               ),
               SizedBox(height: 100),
@@ -133,52 +112,9 @@ class _LoginState extends State<Login> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    // if(formKey.currentState!.validate()) {
-                    //   print('Form is valid');
-
-                    //   Navigator.pushReplacement(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => Homepage()),
-                    //   );
-                    // } else {
-                    //   print('Form is invalid');
-                    // }
-
-                    var loginController = LoginController();
-                    loginController.checkUser(context, emailContronller.text, passwordController.text, formKey);
+                    authService.signUpWithEmaiPassword(emailContronller.text, passwordController.text);
                   },
                   child: Text('Submit')),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     // Navigator.pushNamed(context, '/homepage');
-              //     Navigator.pushReplacement(
-              //       context,
-              //       MaterialPageRoute(builder: (context) => Homepage()),
-              //     );
-              //   },
-              //   child: Text('Go to Homepage'),
-              // ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Don\'t have an account?',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUp()),
-                      );
-                    },
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
         ),

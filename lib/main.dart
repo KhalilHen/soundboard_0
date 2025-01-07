@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:soundboard_0/auth/auth_gate.dart';
 import 'package:soundboard_0/pages/homepage.dart';
-import 'package:soundboard_0/pages/login.dart'; 
+import 'package:soundboard_0/pages/login.dart';
 
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() async {
-  
 
   runApp(const MyApp());
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -24,11 +24,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-              debugShowCheckedModeBanner: false,
-
-      home: Login(),
+      debugShowCheckedModeBanner: false,
+      home: AuthGate(),
     );
   }
 }
-
-
