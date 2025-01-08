@@ -159,7 +159,7 @@ class _HomepageState extends State<Homepage> {
       final urls = await soundController.retrieveList(context);
       if (mounted) {
         setState(() {
-          audioUrls = urls;
+          audioUrls = urls.map((map) => map['url'] ?? '').toList();
         });
       } else {
         setState(() {});

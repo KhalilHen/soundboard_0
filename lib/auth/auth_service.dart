@@ -20,7 +20,7 @@ class AuthService {
 
   String? getLoggedInUser() {
     final session = supaBase.auth.currentSession;
-    final user = session?.user;
-    return user?.id;
+    final user = session?.user.id;
+    return user;
   }
 }

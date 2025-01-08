@@ -188,7 +188,7 @@ class SoundController {
   //     return [];
   //   }
   // }
-  Future<List<String>> retrieveList(BuildContext context) async {
+  Future<List<Map<String, String>>> retrieveList(BuildContext context) async {
     try {
       final user = await authService.getLoggedInUser();
       if (user == null) {
@@ -197,29 +197,34 @@ class SoundController {
             content: Text('Please log in to upload files.'),
           ),
         );
-      }
-      // final response = await supabase.storage.from('sounds').list(path: 'uploads');
-      final response = await supabase.storage.from('sounds').list(path: 'uploads/${user}');
-
-      if (response.isEmpty) {
-        print('No files found in storage');
         return [];
       }
 
-      List<String> urls = [];
-      for (var file in response) {
+      final response = await supabase
+          .from('sound')
+          .select()
+          .eq('user_id', user);
+
+      if (response.isEmpty) {
+        print('No files found in database');
+        return [];
+      }
+
+      List<Map<String, String>> files = [];
+      for (var record in response) {
         try {
-          // Create a signed URL that will work for a period of time
-          final signedUrl = await supabase.storage.from('sounds').createSignedUrl('uploads/${user}/${file.name}', 3600); // URL valid for 1 hour
+          final fileName = record['file_path'];
+          final title = record['title'];
+          final signedUrl = await supabase.storage.from('sounds').createSignedUrl('uploads/${user}/${fileName}', 3600); // URL valid for 1 hour
 
           print('Generated signed URL: $signedUrl'); // Debug print
-          urls.add(signedUrl);
+          files.add({'title': title, 'url': signedUrl});
         } catch (e) {
-          print('Error generating URL for ${file.name}: $e');
+          print('Error generating URL for ${record['file_path']}: $e');
           continue;
         }
       }
-      return urls;
+      return files;
     } catch (e) {
       print('Error during list retrieval: $e');
       if (context.mounted) {
