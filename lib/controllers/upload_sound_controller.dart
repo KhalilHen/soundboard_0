@@ -45,7 +45,7 @@ class SoundController {
     }
   }
 
-  Future<void> uploadFile(BuildContext context) async {
+  Future<void> uploadFile(BuildContext context, String name) async {
     final user = await authService.getLoggedInUser();
     if (user == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -66,6 +66,21 @@ class SoundController {
     }
 
     try {
+      print(name);
+      final filePath = 'uploads/$user/$_fileName';
+
+      final tableResponse = await supabase.from('sound').insert([
+        {
+          'name': name, 
+          'user_id': user,
+          'file_name': filePath,
+        }
+      ]).select();
+
+      if (tableResponse.error != null) {
+        throw Exception('Failed to insert record: ${tableResponse.error!.message}');
+      }
+
       final response = await supabase.storage.from('sounds').uploadBinary(
             'uploads/${user}/$_fileName',
             _fileBytes!,
@@ -213,6 +228,10 @@ class SoundController {
       return [];
     }
   }
+}
+
+extension on PostgrestList {
+  get error => null;
 }
 
 extension on List<FileObject> {

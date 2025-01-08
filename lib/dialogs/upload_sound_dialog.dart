@@ -22,16 +22,17 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // TextFormField(
-            //   controller: nameController,
-            //   decoration: InputDecoration(labelText: 'Sound Name'),
-            //   validator: (value) {
-            //     if (value == null || value.isEmpty) {
-            //       return 'Please enter a sound name';
-            //     }
-            //     return null;
-            //   },
-            // ), TODO Temporarily removed  as not yet implented
+            TextFormField(
+              controller: nameController,
+              decoration: InputDecoration(labelText: 'Sound Name'),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a sound name';
+                }
+                return null;
+              },
+            ),
+            // TODO Temporarily removed  as not yet implented
             // TextFormField(
             //   decoration: InputDecoration(labelText: 'Sound File Path'),
             //   validator: (value) {
@@ -45,6 +46,7 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
             ElevatedButton(
                 onPressed: () {
                   // soundController.uploadSound(nameController.text, 'sound file path');
+
                   soundController.pickFile(context);
                 },
                 child: Text('Select Sound File')),
@@ -60,7 +62,15 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
         ),
         ElevatedButton(
           onPressed: () {
-            soundController.uploadFile(context);
+            soundController.uploadFile(context, nameController.text);
+          },
+          child: Text('Upload'),
+        ),
+
+
+             ElevatedButton(
+          onPressed: () {
+            soundController.uploadFile(context, nameController.text);
           },
           child: Text('Upload'),
         ),
