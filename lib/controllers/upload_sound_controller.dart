@@ -200,10 +200,7 @@ class SoundController {
         return [];
       }
 
-      final response = await supabase
-          .from('sound')
-          .select()
-          .eq('user_id', user);
+      final response = await supabase.from('sound').select().eq('user_id', user);
 
       if (response.isEmpty) {
         print('No files found in database');

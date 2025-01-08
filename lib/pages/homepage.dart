@@ -224,47 +224,57 @@ class _HomepageState extends State<Homepage> {
       //     ),
       //   ),
       // ),
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          childAspectRatio: 0.8,
-        ),
-        itemCount: audioFiles.length,
-        itemBuilder: (context, index) {
-          final file = audioFiles[index];
-          final url = file['url'] ?? '';
-          final title = file['title'] ?? 'Untitled';
-          final isThisPlaying = currentlyPlayingUrl == url && isPlaying;
-          return Column(
-            children: [
-              IconButton(
-                icon: Icon(Icons.music_note),
-                color: Colors.white,
-                onPressed: () {
-                  print('Button $index pressed');
-                  print('Audio file $index pressed');
-                  // handlePlayPause(audioUrls[index]);
-                  handlePlayPause(url);
-                  print('Playing audio from URL: $url');
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                  ),
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+      body: audioFiles.isEmpty
+          ? Center(
+              child: Text(
+                errorMessage ?? 'No sounds found.',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
                 ),
               ),
-            ],
-          );
-        },
-      ),
+            )
+          : GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                childAspectRatio: 0.8,
+              ),
+              itemCount: audioFiles.length ?? 0,
+              itemBuilder: (context, index) {
+                final file = audioFiles[index];
+                final url = file['url'] ?? '';
+                final title = file['title'] ?? 'Untitled';
+                final isThisPlaying = currentlyPlayingUrl == url && isPlaying;
+                return Column(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.music_note),
+                      color: Colors.white,
+                      onPressed: () {
+                        print('Button $index pressed');
+                        print('Audio file $index pressed');
+                        // handlePlayPause(audioUrls[index]);
+                        handlePlayPause(url);
+                        print('Playing audio from URL: $url');
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
       // body: Center(
       //   child: IconButton(onPressed: handlePlayPause, icon: Icon(Icons.play_arrow)),
       // ),
