@@ -67,13 +67,15 @@ class SoundController {
 
     try {
       print(name);
-      final filePath = 'uploads/$user/$_fileName';
+      print(user);
+      // print(filePath);
+      print(_fileName);
 
       final tableResponse = await supabase.from('sound').insert([
         {
-          'name': name, 
+          'title': name,
           'user_id': user,
-          'file_name': filePath,
+          'file_path': _fileName,
         }
       ]).select();
 
