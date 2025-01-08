@@ -29,7 +29,8 @@ class _HomepageState extends State<Homepage> {
   int? itemCount;
   String? errorMessage;
   final player = AudioPlayer(); // Create a player
-  List<String> audioUrls = [];
+  List<Map<String, String>> audioFiles = [];
+
   bool isPlaying = false;
   String? currentlyPlayingUrl;
 
@@ -156,10 +157,10 @@ class _HomepageState extends State<Homepage> {
 
   Future<void> _loadItems() async {
     try {
-      final urls = await soundController.retrieveList(context);
+      final files = await soundController.retrieveList(context);
       if (mounted) {
         setState(() {
-          audioUrls = urls.map((map) => map['url'] ?? '').toList();
+          audioFiles = files;
         });
       } else {
         setState(() {});
@@ -226,10 +227,13 @@ class _HomepageState extends State<Homepage> {
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
+          childAspectRatio: 0.8,
         ),
-        itemCount: audioUrls.length,
+        itemCount: audioFiles.length,
         itemBuilder: (context, index) {
-          final url = audioUrls[index];
+          final file = audioFiles[index];
+          final url = file['url'] ?? '';
+          final title = file['title'] ?? 'Untitled';
           final isThisPlaying = currentlyPlayingUrl == url && isPlaying;
           return Column(
             children: [
@@ -243,6 +247,19 @@ class _HomepageState extends State<Homepage> {
                   handlePlayPause(url);
                   print('Playing audio from URL: $url');
                 },
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           );
