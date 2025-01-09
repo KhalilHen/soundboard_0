@@ -12,7 +12,7 @@ The project was initially meant using Flutter and Firebase. However, due to chan
 
 ## How can you experience this project? 
 
-By either cloning it into your favorite IDE, or downloading here the apk [here!](https://drive.google.com/file/d/1pevIJYKF7fgKWIv28CXm-5NXOuGL9hRZ/view?usp=drive_link)
+By either cloning it into your favorite IDE, or downloading here the apk [here!](https://drive.google.com/file/d/127QAspnR_OF1KQrcWvYAph_0-s7TwXO_/view?usp=drive_link)
 and use the following credentials
 email: test@hotmail.com
 password: test
