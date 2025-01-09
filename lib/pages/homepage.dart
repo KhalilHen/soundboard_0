@@ -239,7 +239,7 @@ class _HomepageState extends State<Homepage> {
                 crossAxisCount: 4,
                 childAspectRatio: 0.8,
               ),
-              itemCount: audioFiles.length ?? 0,
+              itemCount: audioFiles.length,
               itemBuilder: (context, index) {
                 final file = audioFiles[index];
                 final url = file['url'] ?? '';
@@ -248,7 +248,9 @@ class _HomepageState extends State<Homepage> {
                 return Column(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.music_note),
+                      icon: Icon(
+                        isThisPlaying ? Icons.pause : Icons.play_arrow,
+                      ),
                       color: Colors.white,
                       onPressed: () {
                         print('Button $index pressed');
