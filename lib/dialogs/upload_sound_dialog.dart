@@ -32,11 +32,9 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
               },
             ),
             // TODO Temporarily removed  as not yet implented
-         
-
+            Padding(padding: EdgeInsets.only(top: 10)),
             ElevatedButton(
                 onPressed: () {
-
                   soundController.pickFile(context);
                 },
                 child: Text('Select Sound File')),
@@ -51,14 +49,6 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
           child: Text('Cancel'),
         ),
         ElevatedButton(
-          onPressed: () {
-            soundController.uploadFile(context, nameController.text);
-          },
-          child: Text('Upload'),
-        ),
-
-
-             ElevatedButton(
           onPressed: () {
             soundController.uploadFile(context, nameController.text);
           },
