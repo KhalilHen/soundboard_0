@@ -155,6 +155,11 @@ class SoundController {
       return [];
     }
   }
+
+  void deleteSong() {
+
+    
+  }
 }
 
 extension on PostgrestList {
@@ -168,5 +173,3 @@ extension on List<FileObject> {
 extension on String {
   get error => null;
 }
-
-

@@ -29,8 +29,5 @@ class LoginController {
         );
       });
     }
-
-
   }
-
 }

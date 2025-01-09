@@ -41,7 +41,6 @@ class _HomepageState extends State<Homepage> {
 
     player.playerStateStream.listen((state) {
       if (mounted) {
-        
         setState(() {
           isPlaying = state.playing;
         });
@@ -54,7 +53,6 @@ class _HomepageState extends State<Homepage> {
       }
     });
   }
-
 
   Future<void> handlePlayPause(String url) async {
     try {
@@ -143,66 +141,97 @@ class _HomepageState extends State<Homepage> {
               );
             },
           ),
-        
         ],
       ),
       backgroundColor: Color.fromARGB(255, 46, 45, 45), // Clean dark background
 
-   
       body: audioFiles.isEmpty
           ? Center(
               child: Text(
                 errorMessage ?? 'No sounds found.',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                 ),
               ),
             )
-          : GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                childAspectRatio: 0.8,
-              ),
-              itemCount: audioFiles.length,
-              itemBuilder: (context, index) {
-                final file = audioFiles[index];
-                final url = file['url'] ?? '';
-                final title = file['title'] ?? 'Untitled';
-                final isThisPlaying = currentlyPlayingUrl == url && isPlaying;
-                return Column(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        isThisPlaying ? Icons.pause : Icons.play_arrow,
+          : SafeArea(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        childAspectRatio: 0.8,
                       ),
-                      color: Colors.white,
-                      onPressed: () {
-                        print('Button $index pressed');
-                        print('Audio file $index pressed');
-                        // handlePlayPause(audioUrls[index]);
-                        handlePlayPause(url);
-                        print('Playing audio from URL: $url');
+                      shrinkWrap: true, // Let the GridView adapt to its content
+
+                      itemCount: audioFiles.length,
+                      itemBuilder: (context, index) {
+                        final file = audioFiles[index];
+                        final url = file['url'] ?? '';
+                        final title = file['title'] ?? 'Untitled';
+                        final isThisPlaying = currentlyPlayingUrl == url && isPlaying;
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              // Navigate to detailed view when the card is tapped
+                              onTap: () => null,
+                              // Navigator.of(context).push(
+                              //   MaterialPageRoute(
+                              //     builder: (context) => SoundDetailView(
+                              //       file: file,
+                              //     ),
+                              //   ),
+                              // ),
+                              child: Hero(
+                                tag: 'test',
+                                child: Container(
+                                  width: 80,
+                                  height: 80,
+                                  color: Colors.grey[800], // Placeholder for an image or visual
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.music_note,
+                                      color: Colors.white,
+                                      size: 40,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            // Play/Pause button
+                            IconButton(
+                              icon: Icon(
+                                isThisPlaying ? Icons.pause : Icons.play_arrow,
+                                size: 30,
+                              ),
+                              color: Colors.white,
+                              onPressed: () => handlePlayPause(url),
+                            ),
+                            // Sound title
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                title,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        );
                       },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                );
-              },
+                  ),
+                ],
+              ),
             ),
-    
 
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
