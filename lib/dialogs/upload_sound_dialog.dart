@@ -11,7 +11,6 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
   final soundController = SoundController();
 
   final nameController = TextEditingController();
-//  final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -33,19 +32,10 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
               },
             ),
             // TODO Temporarily removed  as not yet implented
-            // TextFormField(
-            //   decoration: InputDecoration(labelText: 'Sound File Path'),
-            //   validator: (value) {
-            //     if (value == null || value.isEmpty) {
-            //       return 'Please enter a sound file path';
-            //     }
-            //     return null;
-            //   },
+         
 
-            // ),
             ElevatedButton(
                 onPressed: () {
-                  // soundController.uploadSound(nameController.text, 'sound file path');
 
                   soundController.pickFile(context);
                 },

@@ -111,83 +111,6 @@ class SoundController {
     }
   }
 
-  // Future<int> retrieveList(BuildContext context) async {
-  //   try {
-  //     final response = await supabase.storage.from('sounds').list();
-
-  //     if (response.error == null) {
-  //       return response.length;
-
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(
-  //           content: Text('List retrieved successfully!'),
-  //         ),
-  //       );
-  //     } else {
-  //       return throw Exception('Failed to retrieve list: ${response.error!.message}');
-  //     }
-  //   } catch (e) {
-  //     print('Error during list retrieval: $e');
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Error: $e'),
-  //       ),
-  //     );
-  //     return 0;
-  //   }
-  // }
-
-//   Future<List<String>> retrieveList(BuildContext context) async {
-//     try {
-//       final response = await supabase.storage.from('sounds').list(path: 'uploads');
-
-//       List<String> urls = [];
-//       for (var file in response) {
-//         final url = supabase.storage.from('sounds').getPublicUrl('uploads/${file.name}');
-//         urls.add(file.name); // Store just the filename
-//       }
-//       return urls;
-//     } catch (e) {
-//       print('Error during list retrieval: $e');
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(content: Text('Error loading audio files: $e')),
-//       );
-//       return [];
-//     }
-//   }
-// }
-
-  // Future<List<String>> retrieveList(BuildContext context) async {
-  //   try {
-  //     final response = await supabase.storage.from('sounds').list(path: 'uploads');
-
-  //     if (response.isEmpty) {
-  //       print('No files found in storage');
-  //       return [];
-  //     }
-
-  //     List<String> urls = [];
-  //     for (var file in response) {
-  //       try {
-  //         // Get the public URL correctly
-  //         String publicUrl = supabase.storage.from('sounds').getPublicUrl('uploads/${file.name}');
-
-  //         print('Generated URL: $publicUrl'); // Debug print
-  //         urls.add(publicUrl);
-  //       } catch (e) {
-  //         print('Error generating URL for ${file.name}: $e');
-  //         continue;
-  //       }
-  //     }
-  //     return urls;
-  //   } catch (e) {
-  //     print('Error during list retrieval: $e');
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Error loading audio files: $e')),
-  //     );
-  //     return [];
-  //   }
-  // }
   Future<List<Map<String, String>>> retrieveList(BuildContext context) async {
     try {
       final user = await authService.getLoggedInUser();
@@ -247,8 +170,3 @@ extension on String {
 }
 
 
-// Future<void> getSongUrl() {
-
-
-
-// }

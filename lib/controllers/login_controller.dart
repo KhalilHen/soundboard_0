@@ -30,28 +30,7 @@ class LoginController {
       });
     }
 
-    // if(formKey.currentState!.validate()) {
-    //   FirebaseAuth.instance.signInWithEmailAndPassword(
-    //     email: email,
-    //     password: password,
-    //   ).then((value) {
-    //     Navigator.pushReplacement(
-    //       context,
-    //       MaterialPageRoute(builder: (context) => Homepage()),
-    //     );
-    //   }).catchError((e) {
 
-    //     //
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       SnackBar(
-    //         content: Text('Invalid email or password' +e),
-    //       ),
-    //     );
-    //   });
-    // }
   }
 
-  retrieveCurrentUser() {
-    // return FirebaseAuth.instance.currentUser;
-  }
 }

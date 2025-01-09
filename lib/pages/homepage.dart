@@ -19,7 +19,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  // parseUser currentUser = FirebaseAuth.instance.currentUser;
   final supabase = Supabase.instance.client;
 
   final authService = AuthService();
@@ -37,14 +36,12 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    // player.setUrl(
-    //     // "https://ldbacsjpyrkqcnhcbrrk.supabase.co/storage/v1/object/sign/sounds/uploads/Lijpe%20preview%20gelekt%20(2022)%20-%20%20Als%20ze%20niks%20op%20je%20hebben%20dan%20gaan%20ze%20wat%20verzinnen.mp3?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzb3VuZHMvdXBsb2Fkcy9MaWpwZSBwcmV2aWV3IGdlbGVrdCAoMjAyMikgLSAgQWxzIHplIG5pa3Mgb3AgamUgaGViYmVuIGRhbiBnYWFuIHplIHdhdCB2ZXJ6aW5uZW4ubXAzIiwiaWF0IjoxNzM1MTcwOTE1LCJleHAiOjE3MzU3NzU3MTV9.d_L7RFh4jToC69u376goLMRCMr6h74Mg0zdmL_-nzf8&t=2024-12-25T23%3A55%3A16.252Z");
 
-    //     "https://www.youtube.com/watch?v=gJZWzi8BgBQ&ab_channel=FlutterGuys");
     _loadItems(); // Fetch data when the widget initializes
 
     player.playerStateStream.listen((state) {
       if (mounted) {
+        
         setState(() {
           isPlaying = state.playing;
         });
@@ -58,58 +55,6 @@ class _HomepageState extends State<Homepage> {
     });
   }
 
-  // void handlePlayPause(String fileName) {
-  //   try {
-  //     final fileUrl = supabase.storage.from('sounds').getPublicUrl('uploads/$fileName').data;
-
-  //     if (fileUrl == null) {
-  //       print('File URL is null, please check the file name and path.');
-  //       return;
-  //     }
-
-  //     if (player.playing) {
-  //       player.pause();
-  //     } else {
-  //       print('Playing $fileUrl');
-  //       player.setUrl(fileUrl); // Set the new URL to the player
-
-  //       player.play();
-  //     }
-  //   } catch (e) {
-  //     // print(e);
-  //     SnackBar(
-  //       content: Text('Error: $e'),
-  //     );
-  //   }
-  // }
-
-  // Future<void> handlePlayPause(String url) async {
-  //   try {
-  //     if (currentlyPlayingUrl == url) {
-  //       // Toggle play/pause for current track
-  //       if (isPlaying) {
-  //         await player.pause();
-  //       } else {
-  //         await player.play();
-  //       }
-  //     } else {
-  //       // Play new track
-  //       await player.stop();
-  //       await player.setUrl(url);
-  //       await player.play();
-  //       setState(() {
-  //         currentlyPlayingUrl = url;
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print('Error playing audio: $e');
-  //     if (mounted) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text('Error playing audio: $e')),
-  //       );
-  //     }
-  //   }
-  // }
 
   Future<void> handlePlayPause(String url) async {
     try {
@@ -198,32 +143,12 @@ class _HomepageState extends State<Homepage> {
               );
             },
           ),
-          // IconButton(
-          //     onPressed: () {
-          //       handlePlayPause();
-          //     },
-          //     icon: Icon(Icons.play_arrow)),
+        
         ],
       ),
       backgroundColor: Color.fromARGB(255, 46, 45, 45), // Clean dark background
 
-      // body: Container(
-
-      //     child:  Text(loginController.retrieveCurrentUser().email), // This works
-
-      // ),
-      // body:  retretrieveSounds(),
-
-      //For testing if it can find the current user
-      // body: Center(
-      //   child: Text(
-      //     authService.getLoggedInUser() ?? 'No user found',
-      //     style: TextStyle(
-      //       color: Colors.white,
-      //       fontSize: 20,
-      //     ),
-      //   ),
-      // ),
+   
       body: audioFiles.isEmpty
           ? Center(
               child: Text(
@@ -277,19 +202,7 @@ class _HomepageState extends State<Homepage> {
                 );
               },
             ),
-      // body: Center(
-      //   child: IconButton(onPressed: handlePlayPause, icon: Icon(Icons.play_arrow)),
-      // ),
-      // Gonna try this later gonna work first on playing the audio
-      // body: Container(
-      //   child: ElevatedButton(
-      //     onPressed: () async {x1
-      //       final SupabaseClient supabase = Supabase.instance.client;
-      //       final Bucket bucket = await supabase.storage.getBucket('sounds');
-      //     },
-      //     child: Text('Get Sounds'),
-      //   ),
-      // ),
+    
 
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),

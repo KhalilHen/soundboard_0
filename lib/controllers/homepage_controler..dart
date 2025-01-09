@@ -3,11 +3,7 @@ import 'package:soundboard_0/auth/auth_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomePageController {
-  // retrieveSoundButtons()  {
-
-  //   return StreamBuilder(stream: , builder: builder)
-
-  // }
+  
 
   retretrieveSounds() async {
     final SupabaseClient supabase = Supabase.instance.client;

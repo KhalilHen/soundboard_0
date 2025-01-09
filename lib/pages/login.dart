@@ -19,25 +19,7 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
 
   final authService = AuthService();
-  //temporary function placement  to test
-  void Login() async {
-    final email = emailContronller.text;
-    final password = passwordController.text;
-    try {
-      await authService.signInWithEmaiPassword(email, password).then((value) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Homepage()),
-        );
-      }).catchError((e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Invalid email or password' + e.toString()),
-          ),
-        );
-      });
-    } catch (e) {}
-  }
+
 
 //This is for clearing the form field s after submiting
   @override
@@ -133,31 +115,13 @@ class _LoginState extends State<Login> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    // if(formKey.currentState!.validate()) {
-                    //   print('Form is valid');
-
-                    //   Navigator.pushReplacement(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => Homepage()),
-                    //   );
-                    // } else {
-                    //   print('Form is invalid');
-                    // }
+              
 
                     var loginController = LoginController();
                     loginController.checkUser(context, emailContronller.text, passwordController.text, formKey);
                   },
                   child: Text('Submit')),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     // Navigator.pushNamed(context, '/homepage');
-              //     Navigator.pushReplacement(
-              //       context,
-              //       MaterialPageRoute(builder: (context) => Homepage()),
-              //     );
-              //   },
-              //   child: Text('Go to Homepage'),
-              // ),
+            
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
