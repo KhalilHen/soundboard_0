@@ -174,7 +174,8 @@ class _HomepageState extends State<Homepage> {
                         final id = file['id'] ?? 'No ID found';
                         final url = file['url'] ?? '';
                         final title = file['title'] ?? 'Untitled';
-                        final description = file['description'] ?? 'No description provided';
+                        final path = file['file_path'] ?? 'No path found';
+                        final userId = file['user_id'] ?? 'No user found';
                         final isThisPlaying = currentlyPlayingUrl == url && isPlaying;
 
                         return GestureDetector(
@@ -184,7 +185,7 @@ class _HomepageState extends State<Homepage> {
                                 file: file,
                                 isPlaying: isThisPlaying,
                                 onPlayPause: () => handlePlayPause(url),
-                                onDelete: () => soundController.deleteSong(id),
+                                onDelete: () => soundController.deleteSong(id, path, userId),
                               ),
                             ),
                           ),

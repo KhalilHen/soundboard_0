@@ -161,24 +161,49 @@ class SoundController {
     }
   }
 
-  Future<void> deleteSong(id) async {
+  Future<void> deleteSong(id, path, userId) async {
     if (id != null || id.isEmpty) {
       print("No sound found to delete");
     }
 
     try {
+      print("the path" + path);
       print('Attempting to delete sound with ID: $id');
       final response = await supabase.from('sound').delete().eq('id', id);
       print(response);
       if (response.error != null) {
         throw Exception('Failed to delete record: ${response.error!.message}');
       } else {
+        //try here to delete also in the storage
+
+        try {
+          //TODO Not working yet
+
+          final storageResponse = await supabase.storage.from('sounds').remove(['uploads/$userId/$path']);
+
+          print("The path in the storage =" + path);
+          // if (storageResponse.error != null) {
+          //   throw Exception('Failed to delete sound: ${storageResponse.error!.message}');
+          // }
+          if (storageResponse.error != null) {
+            throw Exception('Failed to delete sound: ${storageResponse.error!.message}');
+          }
+
+          print('Sound deleted successfully');
+        } catch (e) {
+          print('There went something wrong with deleting the file from the bucket: $e');
+        }
+
         print('Sound deleted successfully');
       }
     } catch (e) {
       print('Error during sound deletion: $e');
     }
   }
+}
+
+extension on List<FileObject> {
+  get error => null;
 }
 
 extension on PostgrestList {
