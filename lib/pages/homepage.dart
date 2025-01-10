@@ -170,6 +170,8 @@ class _HomepageState extends State<Homepage> {
                       itemCount: audioFiles.length,
                       itemBuilder: (context, index) {
                         final file = audioFiles[index];
+                        // final id = file['id'] ?? '';
+                        final id = file['id'] ?? 'No ID found';
                         final url = file['url'] ?? '';
                         final title = file['title'] ?? 'Untitled';
                         final description = file['description'] ?? 'No description provided';
@@ -182,6 +184,7 @@ class _HomepageState extends State<Homepage> {
                                 file: file,
                                 isPlaying: isThisPlaying,
                                 onPlayPause: () => handlePlayPause(url),
+                                onDelete: () => soundController.deleteSong(id),
                               ),
                             ),
                           ),

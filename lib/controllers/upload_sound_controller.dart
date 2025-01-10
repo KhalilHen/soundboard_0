@@ -135,6 +135,7 @@ class SoundController {
       for (var record in response) {
         try {
           final fileName = record['file_path'];
+          final id = record['id'];
           final title = record['title'];
           final description = record['description'];
           // final fileDetails =  title = record['title'], description = record['description'];
@@ -142,7 +143,7 @@ class SoundController {
           final signedUrl = await supabase.storage.from('sounds').createSignedUrl('uploads/${user}/${fileName}', 3600); // URL valid for 1 hour
 
           print('Generated signed URL: $signedUrl'); // Debug print
-          files.add({'title': title, 'url': signedUrl, 'description': description});
+          files.add({'title': title, 'url': signedUrl, 'description': description, 'id': id});
         } catch (e) {
           print('Error generating URL for ${record['file_path']}: $e');
           continue;
@@ -160,7 +161,24 @@ class SoundController {
     }
   }
 
-  void deleteSong() {}
+  Future<void> deleteSong(id) async {
+    if (id != null || id.isEmpty) {
+      print("No sound found to delete");
+    }
+
+    try {
+      print('Attempting to delete sound with ID: $id');
+      final response = await supabase.from('sound').delete().eq('id', id);
+      print(response);
+      if (response.error != null) {
+        throw Exception('Failed to delete record: ${response.error!.message}');
+      } else {
+        print('Sound deleted successfully');
+      }
+    } catch (e) {
+      print('Error during sound deletion: $e');
+    }
+  }
 }
 
 extension on PostgrestList {

@@ -4,12 +4,14 @@ class SoundDetailView extends StatelessWidget {
   final Map<String, String> file;
   final bool isPlaying;
   final VoidCallback onPlayPause;
+  final VoidCallback onDelete;
 
   const SoundDetailView({
     Key? key,
     required this.file,
     required this.isPlaying,
     required this.onPlayPause,
+    required this.onDelete,
   }) : super(key: key);
 
   @override
@@ -23,6 +25,7 @@ class SoundDetailView extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.delete_outline, color: Colors.red[300]),
             onPressed: () {
+              onDelete();
               Navigator.of(context).pop();
             },
           ),
