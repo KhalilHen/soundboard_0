@@ -161,70 +161,80 @@ class _HomepageState extends State<Homepage> {
                   Expanded(
                     child: GridView.builder(
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                        childAspectRatio: 0.8,
+                        crossAxisCount: 2,
+                        childAspectRatio: 1,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
                       ),
-                      shrinkWrap: true, // Let the GridView adapt to its content
-
                       itemCount: audioFiles.length,
                       itemBuilder: (context, index) {
                         final file = audioFiles[index];
                         final url = file['url'] ?? '';
                         final title = file['title'] ?? 'Untitled';
                         final isThisPlaying = currentlyPlayingUrl == url && isPlaying;
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              // Navigate to detailed view when the card is tapped
-                              onTap: () => null,
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (context) => SoundDetailView(
-                              //       file: file,
-                              //     ),
-                              //   ),
-                              // ),
-                              child: Hero(
-                                tag: 'test',
-                                child: Container(
-                                  width: 80,
-                                  height: 80,
-                                  color: Colors.grey[800], // Placeholder for an image or visual
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.music_note,
+
+                        return GestureDetector(
+                          onTap: null,
+                 
+
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 65,
+                                height: 65,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[850],
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: isThisPlaying ? Colors.blue[400]! : Colors.transparent,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Icon(
+                                  Icons.music_note,
+                                  color: isThisPlaying ? Colors.blue[400] : Colors.white70,
+                                  size: 32,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: isThisPlaying ? Colors.blue[400] : Colors.grey[800],
+                                  shape: BoxShape.circle,
+                                ),
+                                child: IconButton(
+                                  constraints: BoxConstraints(
+                                    minWidth: 36,
+                                    minHeight: 36,
+                                  ),
+                                  padding: EdgeInsets.zero,
+                                  icon: Icon(
+                                    isThisPlaying ? Icons.pause : Icons.play_arrow,
+                                    size: 24,
+                                  ),
+                                  color: Colors.white,
+                                  onPressed: () => handlePlayPause(url),
+                                ),
+                              ),
+                              Flexible(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
+                                  child: Text(
+                                    title,
+                                    style: TextStyle(
                                       color: Colors.white,
-                                      size: 40,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
                                     ),
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               ),
-                            ),
-                            // Play/Pause button
-                            IconButton(
-                              icon: Icon(
-                                isThisPlaying ? Icons.pause : Icons.play_arrow,
-                                size: 30,
-                              ),
-                              color: Colors.white,
-                              onPressed: () => handlePlayPause(url),
-                            ),
-                            // Sound title
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                title,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         );
                       },
                     ),
