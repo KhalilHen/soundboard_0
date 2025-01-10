@@ -57,7 +57,7 @@ class SoundDetailView extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             Text(
               'Title',
               style: TextStyle(
@@ -75,8 +75,8 @@ class SoundDetailView extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 24),
-            Text(
+            const SizedBox(height: 24),
+            const Text(
               'Description',
               style: TextStyle(
                 color: Colors.grey,
@@ -84,12 +84,87 @@ class SoundDetailView extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               file['description'] ?? 'No description available',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
+              ),
+            ),
+            SizedBox(height: 24),
+            Text(
+              'File Details',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 8),
+            Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.black26,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.insert_drive_file, size: 20, color: Colors.grey),
+                      SizedBox(width: 12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Filename',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            file['file_path'] ?? 'Unknown',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Icon(Icons.access_time, size: 20, color: Colors.grey),
+                      SizedBox(width: 12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Added',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            file['created_at'] ?? 'Unknown',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
