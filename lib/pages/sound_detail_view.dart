@@ -22,6 +22,14 @@ class SoundDetailView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black87,
         elevation: 0,
+        title: Text(
+          'Sound Details of ${file['title']}',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.delete_outline, color: Colors.red[300]),
@@ -52,7 +60,7 @@ class SoundDetailView extends StatelessWidget {
                       isPlaying ? Icons.pause_circle : Icons.play_circle,
                       size: 80,
                     ),
-                    color: Colors.white,
+                    color: isPlaying ? Colors.blue[400] : Colors.white,
                     onPressed: onPlayPause,
                   ),
                 ),

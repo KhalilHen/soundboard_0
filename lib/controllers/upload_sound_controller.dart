@@ -183,17 +183,40 @@ class SoundController {
         //try here to delete also in the storage
 
         try {
-          //TODO Not working yet
+          //TODO Work here later on doesn't work yet
 
-          final storageResponse = await supabase.storage.from('sounds').remove(['uploads/$userId/$title/$path']);
+          final folderPath = 'uploads/$userId/$title';
 
-          print("The path in the storage =" + path);
+          final listResponse = await supabase.storage.from('sounds').list(path: folderPath);
+
+          if (listResponse.error != null) {
+            throw Exception('Failed to list files: ${listResponse.error!.message}');
+          }
+
+          final filePaths = listResponse.map((file) => '$folderPath/${file.name}').toList();
+
+          if (filePaths.isEmpty) {
+            print('No files found in the folder to delete.');
+          } else {
+            // Delete all files
+            final deleteResponse = await supabase.storage.from('sounds').remove(filePaths);
+
+            if (deleteResponse.error != null) {
+              throw Exception('Failed to delete files: ${deleteResponse.error!.message}');
+            }
+
+            print('Folder and its files deleted successfully.');
+          }
+
+          // final storageResponse = await supabase.storage.from('sounds').remove(['uploads/$userId/$title']);
+
+          // print("The path in the storage =" + path);
+          // // if (storageResponse.error != null) {
+          // //   throw Exception('Failed to delete sound: ${storageResponse.error!.message}');
+          // // }
           // if (storageResponse.error != null) {
           //   throw Exception('Failed to delete sound: ${storageResponse.error!.message}');
           // }
-          if (storageResponse.error != null) {
-            throw Exception('Failed to delete sound: ${storageResponse.error!.message}');
-          }
 
           print('Sound deleted successfully');
         } catch (e) {

@@ -197,7 +197,7 @@ class _HomepageState extends State<Homepage> {
                                 color: Colors.grey[850],
                                 borderRadius: BorderRadius.circular(12),
                                 border: Border.all(
-                                  color: Colors.transparent,
+                                  color: isThisPlaying ? Colors.blue[400]! : Colors.transparent,
                                   width: 2,
                                 ),
                               ),
