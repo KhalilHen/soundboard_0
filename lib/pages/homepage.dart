@@ -175,56 +175,55 @@ class _HomepageState extends State<Homepage> {
 
                         return GestureDetector(
                           onTap: null,
-                 
-
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 65,
-                                height: 65,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[850],
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                    color: isThisPlaying ? Colors.blue[400]! : Colors.transparent,
-                                    width: 2,
-                                  ),
-                                ),
-                                child: Icon(
-                                  Icons.music_note,
-                                  color: isThisPlaying ? Colors.blue[400] : Colors.white70,
-                                  size: 32,
-                                ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[850],
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: isThisPlaying ? Colors.blue[400]! : Colors.transparent,
+                                width: 2,
                               ),
-                              Container(
-                                margin: EdgeInsets.symmetric(vertical: 4),
-                                decoration: BoxDecoration(
-                                  color: isThisPlaying ? Colors.blue[400] : Colors.grey[800],
-                                  shape: BoxShape.circle,
-                                ),
-                                child: IconButton(
-                                  constraints: BoxConstraints(
-                                    minWidth: 36,
-                                    minHeight: 36,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.music_note,
+                                        color: isThisPlaying ? Colors.blue[400] : Colors.white70,
+                                        size: 32,
+                                      ),
+                                      SizedBox(height: 8),
+                                      IconButton(
+                                        padding: EdgeInsets.zero,
+                                        constraints: BoxConstraints(),
+                                        icon: Icon(
+                                          isThisPlaying ? Icons.pause : Icons.play_arrow,
+                                          size: 24,
+                                        ),
+                                        color: isThisPlaying ? Colors.blue[400] : Colors.white,
+                                        onPressed: () => handlePlayPause(url),
+                                      ),
+                                    ],
                                   ),
-                                  padding: EdgeInsets.zero,
-                                  icon: Icon(
-                                    isThisPlaying ? Icons.pause : Icons.play_arrow,
-                                    size: 24,
-                                  ),
-                                  color: Colors.white,
-                                  onPressed: () => handlePlayPause(url),
                                 ),
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 4),
+                                Container(
+                                  width: double.infinity,
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.black26,
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(10),
+                                    ),
+                                  ),
                                   child: Text(
                                     title,
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 12,
+                                      fontSize: 11,
                                       fontWeight: FontWeight.w500,
                                     ),
                                     textAlign: TextAlign.center,
@@ -232,8 +231,8 @@ class _HomepageState extends State<Homepage> {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         );
                       },
