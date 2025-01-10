@@ -186,7 +186,7 @@ class _HomepageState extends State<Homepage> {
                                 file: file,
                                 isPlaying: isThisPlaying,
                                 onPlayPause: () => handlePlayPause(url),
-                                onDelete: () => soundController.deleteSong(id, path, userId),
+                                onDelete: () => soundController.deleteSong(id, path, userId, title),
                               ),
                             ),
                           ),

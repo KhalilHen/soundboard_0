@@ -83,9 +83,12 @@ class SoundController {
       if (tableResponse.error != null) {
         throw Exception('Failed to insert record: ${tableResponse.error!.message}');
       }
-
+      // final response = await supabase.storage.from('sounds').uploadBinary(
+      //       'uploads/${user}/$_fileName',
+      //       _fileBytes!,
+      //     );
       final response = await supabase.storage.from('sounds').uploadBinary(
-            'uploads/${user}/$_fileName',
+            'uploads/${user}/${name}/${_fileName}',
             _fileBytes!,
           );
 
@@ -141,7 +144,9 @@ class SoundController {
           final whenCreated = record['created_at'];
           // final fileDetails =  title = record['title'], description = record['description'];
 
-          final signedUrl = await supabase.storage.from('sounds').createSignedUrl('uploads/${user}/${fileName}', 3600); // URL valid for 1 hour
+          // final signedUrl = await supabase.storage.from('sounds').createSignedUrl('uploads/${user}/${fileName}', 3600); // URL valid for 1 hour
+
+          final signedUrl = await supabase.storage.from('sounds').createSignedUrl('uploads/${user}/${title}${fileName}', 3600); // URL valid for 1 hour
 
           print('Generated signed URL: $signedUrl'); // Debug print
           files.add({'title': title, 'url': signedUrl, 'description': description, 'id': id, 'file_path': fileName, 'created_at': whenCreated});
@@ -162,7 +167,7 @@ class SoundController {
     }
   }
 
-  Future<void> deleteSong(id, path, userId) async {
+  Future<void> deleteSong(id, path, userId, title) async {
     if (id != null || id.isEmpty) {
       print("No sound found to delete");
     }
@@ -180,7 +185,7 @@ class SoundController {
         try {
           //TODO Not working yet
 
-          final storageResponse = await supabase.storage.from('sounds').remove(['uploads/$userId/$path']);
+          final storageResponse = await supabase.storage.from('sounds').remove(['uploads/$userId/$title/$path']);
 
           print("The path in the storage =" + path);
           // if (storageResponse.error != null) {
