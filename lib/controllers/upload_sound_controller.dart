@@ -45,7 +45,7 @@ class SoundController {
     }
   }
 
-  Future<void> uploadFile(BuildContext context, String name) async {
+  Future<void> uploadFile(BuildContext context, String name, String description) async {
     final user = await authService.getLoggedInUser();
     if (user == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -74,6 +74,7 @@ class SoundController {
       final tableResponse = await supabase.from('sound').insert([
         {
           'title': name,
+          'description': description,
           'user_id': user,
           'file_path': _fileName,
         }
@@ -135,10 +136,13 @@ class SoundController {
         try {
           final fileName = record['file_path'];
           final title = record['title'];
+          final description = record['description'];
+          // final fileDetails =  title = record['title'], description = record['description'];
+
           final signedUrl = await supabase.storage.from('sounds').createSignedUrl('uploads/${user}/${fileName}', 3600); // URL valid for 1 hour
 
           print('Generated signed URL: $signedUrl'); // Debug print
-          files.add({'title': title, 'url': signedUrl});
+          files.add({'title': title, 'url': signedUrl, 'description': description});
         } catch (e) {
           print('Error generating URL for ${record['file_path']}: $e');
           continue;
@@ -156,17 +160,10 @@ class SoundController {
     }
   }
 
-  void deleteSong() {
-
-    
-  }
+  void deleteSong() {}
 }
 
 extension on PostgrestList {
-  get error => null;
-}
-
-extension on List<FileObject> {
   get error => null;
 }
 

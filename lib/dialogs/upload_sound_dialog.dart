@@ -9,7 +9,7 @@ class UploadSoundForm extends StatefulWidget {
 
 class _UploadSoundFormState extends State<UploadSoundForm> {
   final soundController = SoundController();
-
+  final descriptionController = TextEditingController();
   final nameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   @override
@@ -31,7 +31,21 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
                 return null;
               },
             ),
-            // TODO Temporarily removed  as not yet implented
+            Padding(padding: EdgeInsets.all(10)),
+            TextFormField(
+              controller: descriptionController,
+              maxLines: 3,
+              decoration: InputDecoration(
+                labelText: 'Description',
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a description';
+                }
+                return null;
+              },
+            ),
             Padding(padding: EdgeInsets.only(top: 10)),
             ElevatedButton(
                 onPressed: () {
@@ -50,7 +64,7 @@ class _UploadSoundFormState extends State<UploadSoundForm> {
         ),
         ElevatedButton(
           onPressed: () {
-            soundController.uploadFile(context, nameController.text);
+            soundController.uploadFile(context, nameController.text,  descriptionController.text);
           },
           child: Text('Upload'),
         ),

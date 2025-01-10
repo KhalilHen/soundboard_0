@@ -172,6 +172,7 @@ class _HomepageState extends State<Homepage> {
                         final file = audioFiles[index];
                         final url = file['url'] ?? '';
                         final title = file['title'] ?? 'Untitled';
+                        final description = file['description'] ?? 'No description provided';
                         final isThisPlaying = currentlyPlayingUrl == url && isPlaying;
 
                         return GestureDetector(
