@@ -5,6 +5,7 @@ import 'package:soundboard_0/auth/auth_service.dart';
 import 'package:soundboard_0/controllers/homepage_controler..dart';
 import 'package:soundboard_0/controllers/login_controller.dart';
 import 'package:soundboard_0/controllers/upload_sound_controller.dart';
+import 'package:soundboard_0/pages/sound_detail_view.dart';
 import '../dialogs/upload_sound_dialog.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:soundboard_0/pages/login.dart';
@@ -174,64 +175,75 @@ class _HomepageState extends State<Homepage> {
                         final isThisPlaying = currentlyPlayingUrl == url && isPlaying;
 
                         return GestureDetector(
-                          onTap: null,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey[850],
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: isThisPlaying ? Colors.blue[400]! : Colors.transparent,
-                                width: 2,
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => SoundDetailView(
+                                file: file,
+                                isPlaying: isThisPlaying,
+                                onPlayPause: () => handlePlayPause(url),
                               ),
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.music_note,
-                                        color: isThisPlaying ? Colors.blue[400] : Colors.white70,
-                                        size: 32,
-                                      ),
-                                      SizedBox(height: 8),
-                                      IconButton(
-                                        padding: EdgeInsets.zero,
-                                        constraints: BoxConstraints(),
-                                        icon: Icon(
-                                          isThisPlaying ? Icons.pause : Icons.play_arrow,
-                                          size: 24,
+                          ),
+                          child: Hero(
+                            tag: 'sound_${file['file_path']}',
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[850],
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Colors.transparent,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.music_note,
+                                          color: Colors.white70,
+                                          size: 32,
                                         ),
-                                        color: isThisPlaying ? Colors.blue[400] : Colors.white,
-                                        onPressed: () => handlePlayPause(url),
+                                        SizedBox(height: 8),
+                                        IconButton(
+                                          padding: EdgeInsets.zero,
+                                          constraints: BoxConstraints(),
+                                          icon: Icon(
+                                            isThisPlaying ? Icons.pause : Icons.play_arrow,
+                                            size: 24,
+                                          ),
+                                          color: Colors.white,
+                                          onPressed: () => handlePlayPause(url),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    padding: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black26,
+                                      borderRadius: BorderRadius.vertical(
+                                        bottom: Radius.circular(10),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  padding: EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    color: Colors.black26,
-                                    borderRadius: BorderRadius.vertical(
-                                      bottom: Radius.circular(10),
+                                    ),
+                                    child: Text(
+                                      title,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
-                                  child: Text(
-                                    title,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         );
@@ -259,8 +271,4 @@ class _HomepageState extends State<Homepage> {
     player.dispose(); // Dispose the player when the widget is removed
     super.dispose();
   }
-}
-
-extension on String {
-  get data => null;
 }
