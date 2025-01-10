@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SoundDetailView extends StatelessWidget {
   final Map<String, String> file;
@@ -154,7 +155,7 @@ class SoundDetailView extends StatelessWidget {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            file['created_at'] ?? 'Unknown',
+                            file['created_at'] != null ? DateFormat('dd-MM-yyyy').format(DateTime.parse(file['created_at']!)) : 'Unknown',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 14,

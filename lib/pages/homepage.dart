@@ -176,6 +176,7 @@ class _HomepageState extends State<Homepage> {
                         final title = file['title'] ?? 'Untitled';
                         final path = file['file_path'] ?? 'No path found';
                         final userId = file['user_id'] ?? 'No user found';
+                        final whenCreated = file['created_at'] ?? 'No date found';
                         final isThisPlaying = currentlyPlayingUrl == url && isPlaying;
 
                         return GestureDetector(

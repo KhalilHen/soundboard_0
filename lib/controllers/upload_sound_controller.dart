@@ -138,12 +138,13 @@ class SoundController {
           final id = record['id'];
           final title = record['title'];
           final description = record['description'];
+          final whenCreated = record['created_at'];
           // final fileDetails =  title = record['title'], description = record['description'];
 
           final signedUrl = await supabase.storage.from('sounds').createSignedUrl('uploads/${user}/${fileName}', 3600); // URL valid for 1 hour
 
           print('Generated signed URL: $signedUrl'); // Debug print
-          files.add({'title': title, 'url': signedUrl, 'description': description, 'id': id});
+          files.add({'title': title, 'url': signedUrl, 'description': description, 'id': id, 'file_path': fileName, 'created_at': whenCreated});
         } catch (e) {
           print('Error generating URL for ${record['file_path']}: $e');
           continue;
