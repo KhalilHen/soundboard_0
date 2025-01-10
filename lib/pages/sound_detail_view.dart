@@ -127,11 +127,15 @@ class SoundDetailView extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 4),
-                          Text(
-                            file['file_path'] ?? 'Unknown',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Text(
+                              file['file_path'] ?? 'Unknown',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
