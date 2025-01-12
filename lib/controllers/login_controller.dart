@@ -11,6 +11,9 @@ class LoginController {
   // Future<void> checkUser(BuildContext context, formKey, emailContronller, passwordController)
   Future<void> checkUser(BuildContext context, String email, String password, GlobalKey<FormState> formKey) async {
     if (formKey.currentState!.validate()) {
+
+
+
       await AuthService().signInWithEmaiPassword(email, password).then((value) {
         Navigator.pushReplacement(
           context,

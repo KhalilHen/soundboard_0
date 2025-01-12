@@ -83,10 +83,7 @@ class SoundController {
       if (tableResponse.error != null) {
         throw Exception('Failed to insert record: ${tableResponse.error!.message}');
       }
-      // final response = await supabase.storage.from('sounds').uploadBinary(
-      //       'uploads/${user}/$_fileName',
-      //       _fileBytes!,
-      //     );
+     
       final response = await supabase.storage.from('sounds').uploadBinary(
             'uploads/${user}/${name}/${_fileName}',
             _fileBytes!,
@@ -207,16 +204,6 @@ class SoundController {
 
             print('Folder and its files deleted successfully.');
           }
-
-          // final storageResponse = await supabase.storage.from('sounds').remove(['uploads/$userId/$title']);
-
-          // print("The path in the storage =" + path);
-          // // if (storageResponse.error != null) {
-          // //   throw Exception('Failed to delete sound: ${storageResponse.error!.message}');
-          // // }
-          // if (storageResponse.error != null) {
-          //   throw Exception('Failed to delete sound: ${storageResponse.error!.message}');
-          // }
 
           print('Sound deleted successfully');
         } catch (e) {
