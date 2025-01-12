@@ -3,6 +3,7 @@
 This is a soundboard application that allows users to:
 
 Login: Authenticate and access your own sounds.
+Sign-up: Sign up your own account
 Upload Songs: Add your  own audio files to the application.
 Song gridview: View a  gridview  of all your   uploaded songs, represented by music note icons.
 Play: Easily play any song within their library.
@@ -16,3 +17,4 @@ By either cloning it into your favorite IDE, or downloading here the apk [here!]
 and use the following credentials
 email: test@hotmail.com
 password: test
+Or create your own account!
